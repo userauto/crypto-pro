@@ -1,0 +1,21 @@
+services:
+
+  cryptopro:
+    container_name: cryptopro
+    hostname: cryptopro
+    build:
+      context: .
+    environment:
+      - TZ=Europe/Moscow
+      - DISPLAY=unix$DISPLAY
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./files:/files
+      - ./scripts:/scripts  
+    entrypoint: ["sh", "-c", "/scripts/startup.sh && exec \"$@\""]
+    networks:
+      - cryptopro
+
+networks:
+  cryptopro:
+    driver: bridge
